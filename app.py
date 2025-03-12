@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, redirect, render_template, request, jsonify, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import pandas as pd
@@ -218,7 +218,10 @@ def get_complaints():
 
     return jsonify({'complaints': complaint_list}), 200
 
-
+@app.route("/")
+def default_route():
+    return redirect(url_for("home")) 
+    
 @app.route("/home")
 def home():
     return render_template("home.html")
