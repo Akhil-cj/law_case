@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Legal Assistance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #802BB1, #2D283E);
+            color: white;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            color: #D1D7E0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            transition: 0.3s ease-in-out;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .register-btn {
+            background: #D1D7E0;
+            color: #2D283E;
+            position: relative;
+            overflow: hidden;
+        }
+        .register-btn:hover {
+            background: #564F6F;
+            color: white;
+            transform: scale(1.05);
+        }
+        .logout-btn {
+            background: #ff4d4d;
+            position: relative;
+            overflow: hidden;
+        }
+        .logout-btn:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+    </style>
+    <script>
+        function logout() {
+            window.location.href = "/index.html";
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>User Dashboard</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/feedback">Feedback</a>
+            <a href="/complaint" class="btn register-btn">Register Complaint</a>
+            <a href="#" class="btn logout-btn" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+    <div class="container">
+        <h2>Tutorial</h2>
+        <p>1. Click "Register Complaint" to enter your case details.</p>
+        <p>2. The system will analyze and summarize your complaint.</p>
+        <p>3. IPC sections will be matched based on your case.</p>
+        <p>4. Verify and submit your complaint to authorities.</p>
+    </div>
+</body>
+</html>

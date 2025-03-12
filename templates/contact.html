@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - LawCaseAI</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: linear-gradient(to right, #2D283E, #802BB1);
+            color: white;
+            text-align: center;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            font-size: 24px;
+            position: relative;
+        }
+        .nav-buttons {
+            margin-top: 10px;
+        }
+        .nav-buttons a {
+            text-decoration: none;
+            color: white;
+            background: #D1D7E0;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .nav-buttons a:hover {
+            background: #802BB1;
+            color: white;
+        }
+        .contact-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 75vh;
+            padding: 20px;
+        }
+        .contact-form, .contact-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            width: 40%;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+        }
+        .contact-form input::placeholder, .contact-form textarea::placeholder {
+            color: #ccc;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background: #D1D7E0;
+            color: #2D283E;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .contact-form button:hover {
+            background: #802BB1;
+            color: white;
+        }
+        .contact-info div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .contact-info i {
+            font-size: 22px;
+            margin-right: 10px;
+            color: #D1D7E0;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Contact Us - LawCaseAI
+    <div class="nav-buttons">
+        <a href="/home">Home</a>
+        <a href="/about">About</a>
+        <a href="/feedback">Feedback</a>
+    </div>
+</header>
+
+<section class="contact-container">
+    <div class="contact-form">
+        <h2>Get in Touch</h2>
+        <form action="submit_contact.php" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+
+    <div class="contact-info">
+        <h2>Contact Information</h2>
+        <div><i class="fas fa-map-marker-alt"></i> 123 Legal Street, Delhi, India</div>
+        <div><i class="fas fa-envelope"></i> support@lawcaseai.com</div>
+        <div><i class="fas fa-phone"></i> +91 9876543210</div>
+        <div><i class="fas fa-clock"></i> Mon - Fri: 9:00 AM - 6:00 PM</div>
+    </div>
+</section>
+
+<footer>
+    &copy; 2025 LawCaseAI. All Rights Reserved.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Legal Assistance</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #802BB1, #2D283E);
+        }
+
+        /* Registration Box */
+        .register-container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            text-align: center;
+            color: white;
+        }
+
+        .register-container h2 {
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .register-btn {
+            background: #D1D7E0;
+            color: #2D283E;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .register-btn:hover {
+            background: #4C495D;
+            color: white;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .login-link a {
+            color: #D1D7E0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="full_name" placeholder="Enter full name" required>
+            </div>
+
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Choose a username" required>
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="Enter email" required>
+            </div>
+
+            <div class="input-group">
+                <label>Phone Number</label>
+                <input type="tel" id="phone" placeholder="Enter phone number" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter password" required>
+            </div>
+
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input type="password" id="confirm_password" placeholder="Confirm password" required>
+            </div>
+
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+
+        <p class="login-link">Already have an account? <a href="/login">Login here</a></p>
+    </div>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    let full_name = document.getElementById("full_name").value;
+    let username = document.getElementById("username").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let password = document.getElementById("password").value;
+    let confirm_password = document.getElementById("confirm_password").value;
+
+    // Password confirmation check
+    if (password !== confirm_password) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    // Send data to Flask backend
+    try {
+        let response = await fetch("http://127.0.0.1:5000/register_user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                full_name: full_name,
+                username: username,
+                email: email,
+                phone: phone,
+                password: password
+            })
+        });
+
+        let result = await response.json();
+
+        if (response.ok) {
+            alert(result.message);
+            window.location.href = "/login";  // Redirect to login page
+        } else {
+            alert(result.error);  // Show error message from backend
+        }
+    } catch (error) {
+        alert("Error connecting to server. Please try again.");
+        console.error("Error:", error);
+    }
+});
+    </script>   
+
+</body>
+</html>

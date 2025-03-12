@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Legal Assistance</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #802BB1, #2D283E);
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Login Box */
+        .login-container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            text-align: center;
+            color: white;
+        }
+
+        .login-container h2 {
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .login-btn {
+            background: #D1D7E0;
+            color: #2D283E;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #4C495D;
+            color: white;
+        }
+
+        .register-link, .reset-link {
+            margin-top: 15px;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .register-link a, .reset-link a {
+            color: #D1D7E0;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .register-link a:hover, .reset-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Password Reset Box */
+        .reset-container {
+            display: none;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            text-align: center;
+            color: white;
+        }
+
+        .reset-container h3 {
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+
+        .reset-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .reset-container button {
+            background: #802BB1;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .reset-container button:hover {
+            background: #4C495D;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="login-container">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Enter Username" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter Password" required>
+                </div>
+
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+
+            <p class="register-link">Don't have an account? <a href="/register">Register</a></p>
+            <p class="reset-link"><a href="#" onclick="openResetBox()">Forgot your password?</a></p>
+        </div>
+
+        <!-- Password Reset Box -->
+        <div id="resetBox" class="reset-container">
+            <h3>Reset Password</h3>
+            <input type="text" id="resetUsername" placeholder="Enter your username" required>
+            <button onclick="verifyUser()">Verify</button>
+
+            <div id="newPasswordSection" style="display: none;">
+                <input type="password" id="newPassword" placeholder="Enter new password" required>
+                <button onclick="resetPassword()">Change Password</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+         document.getElementById("loginForm").addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
+
+    if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
+    }
+
+    try {
+        let response = await fetch("http://127.0.0.1:5000/login_user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: username, password: password }),
+        });
+
+        let result = await response.json();
+
+        if (response.ok) {
+            alert("Login successful!");
+            window.location.href = "/dashboard";  // Redirect to dashboard
+        } else {
+            alert(result.error);  // Show error message
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+    }
+});
+
+        function openResetBox() {
+            document.getElementById("resetBox").style.display = "block";
+        }
+
+        async function verifyUser() {
+            let username = document.getElementById("resetUsername").value;
+
+            let response = await fetch("http://127.0.0.1:5000/verify_user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: username })
+            });
+
+            let result = await response.json();
+
+            if (response.ok) {
+                document.getElementById("newPasswordSection").style.display = "block";
+                alert("User verified! Now enter your new password.");
+            } else {
+                alert(result.error);
+            }
+        }
+
+        async function resetPassword() {
+            let username = document.getElementById("resetUsername").value;
+            let newPassword = document.getElementById("newPassword").value;
+
+            let response = await fetch("http://127.0.0.1:5000/reset_password", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: username, new_password: newPassword })
+            });
+
+            let result = await response.json();
+
+            if (response.ok) {
+                alert(result.message);
+                document.getElementById("resetBox").style.display = "none";
+            } else {
+                alert(result.error);
+            }
+        }
+    </script>   
+
+</body>
+</html>
