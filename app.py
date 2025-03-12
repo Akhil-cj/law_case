@@ -199,8 +199,6 @@ def register_complaint():
     db.session.commit()
 
     return jsonify({'message': 'Complaint registered successfully', 'summary': summary, 'ipc_matches': ipc_section_numbers}), 201
-
-# Fetch complaints with IPC section numbers only
 @app.route('/complaints', methods=['GET'])
 def get_complaints():
     complaints = Complaint.query.all()
